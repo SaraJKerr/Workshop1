@@ -11,9 +11,9 @@
 \usepackage{wrapfig}
 \usepackage{float}
 
-%\usepackage{minted}
-%\usepackage{mdframed}
-%\surroundwithmdframed{minted}
+\usepackage{minted}
+\usepackage{mdframed}
+\surroundwithmdframed{minted}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -41,14 +41,14 @@
 \section*{Pre-workshop Preparation}
 Before taking part in the workshop it would be very helpful if you could download \textbf{R} and \textbf{R Studio}, and install the packages that will be used in the workshop as this can take a little time. The programs are free and are available for both Mac and Windows. 
 
-I have outlined the steps needed to download the programs below.
+I have outlined the steps needed to download the programs and packages below.
 
 \section{Loading R}
 To download and install \textbf{R}: 
 
 \begin{enumerate}
 	\item Go to \textbf{\url{https://cran.r-project.org}} 
-	\item Select the \textbf{Mac} or \textbf{Windows} download option 
+	\item Select the Mac or Windows download option on the R Download Page
 	\item Follow the instructions in the sections below for your operating system
 \end{enumerate}
 
@@ -79,7 +79,7 @@ If you are running Snow Leopard or Mountain Lion click on the second link - if t
 
 Go to \textit{Applications} and double click on the R icon and the page below should open:
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{rconsole.jpg}
 	\caption{R Console}
@@ -93,7 +93,7 @@ If this does not work, try installing R again.
 
 Once you have downloaded R you will also need to download the latest version of \textbf{XQuartz}. Click on the link on the R download page or go to \textbf{\url{https://www.xquartz.org}}. Follow the install instructions.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{xquartz.jpg}
 	\caption{XQuartz Download Page}
@@ -101,24 +101,55 @@ Once you have downloaded R you will also need to download the latest version of 
 
 \textbf{Download Xcode and accept licence}
 
-Finally, go to the App Store and download \textbf{Xcode}. 
+Finally, go to the App Store and download Xcode. 
  
 Once it has been downloaded, go to \textit{Applications} and open Xcode by double clicking. You may be prompted to install additional elements, if so click \textit{install}. Open Xcode and accept licence. You can now close Xcode.
 
 \subsection*{For Windows Users}
-Hello, here is some text without a meaning.  This text should show what 
-a printed text will look like at this place.
-Testing
+The following page should now be shown:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{windowsR.jpg}
+	\caption{R for Windows}
+\end{figure}
+
+\textbf{Download and install R}
+Click on the link \textit{install R for the first time}. The following page will be shown:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{windowsDL.jpg}
+	\caption{R  Download Page for Windows}
+\end{figure}
+
+Click on the link \textit{Download R 3.3.2. for Windows}. Once the .exe file has downloaded, double click on it and follow the installation instructions. 
+
+For a video tutorial walk through of the download process see: \url{https://youtu.be/maQJMgQkqoE}.
+
+\textbf{Check that R has downloaded correctly}
+
+Open R - a page similar to the page below should open:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{rconsole.jpg}
+	\caption{R Console}
+\end{figure}
+
+You can now close the R console.
+
+If this does not work, try installing R again.
 
 \section{Loading `R Studio'}
-Although R can be used directly, it is easier to use it via an integrated development environment (IDE). One of the most popular IDEs for R is \textbf{R Studio}. \textbf{R Studio} is made up of four main panes which allow simultaneous access to the console, document editor, environment and help.
-\begin{figure}[h]
+Although R can be used directly, it is easier to use it via an integrated development environment (IDE). One of the most popular IDEs for R is \textbf{R Studio}. R Studio is made up of four main panes which allow simultaneous access to the console, document editor, environment and help.
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{rstudiopanes.jpg}
 	\caption{The R Studio Panes}
 \end{figure}
 
-\textbf{R Studio} can be downloaded by going to \textbf{\url{https://www.rstudio.com/products/rstudio/download/}}. Scroll down the page until you reach the heading \textit{Installers for Supported Platforms}, then select the option for your operating system. 
+R Studio can be downloaded by going to \textbf{\url{https://www.rstudio.com/products/rstudio/download/}}. Scroll down the page until you reach the heading \textit{Installers for Supported Platforms}, then select the option for your operating system. 
 
 \begin{figure}[h]
 	\centering
@@ -128,29 +159,49 @@ Although R can be used directly, it is easier to use it via an integrated develo
 
 The downloaded file will be .dmg for Mac or .exe for Windows. Double click and follow the installer instructions.
 
-Check that \textbf{R Studio} has downloaded correctly by opening the program.
+Check that R Studio has downloaded correctly by opening the program.
 
-\textbf{Updates:} From time to time both \textbf{R} and \textbf{R Studio} are updated. This can have an impact on how packages work, especially if you are running an outdated version of \textbf{R}. Make sure you check for updates every 3--6 months.
+\textbf{Updates:} From time to time both R and R Studio are updated. This can have an impact on how packages work, especially if you are running an outdated version of R. Make sure you check for updates every 3--6 months.
 
 \section{Loading the packages for the workshop}
-\textbf{R} is set up with \textbf{`base' R} which includes a variety of functions and built in data sets. To improve the funtionality of \textbf{R} there is an increasingly broad range of packages available for specific uses. These can be easily added to \textbf{R} as needed. The majority of packages (almost 10000) are available via \textbf{\url{https://cran.r-project.org/web/packages/}}.
+R is set up with \textbf{`base' R} which includes a variety of functions and built in data sets. To improve the funtionality of R there is an increasingly broad range of packages available for specific uses. These can be easily added to R as needed. The majority of packages (almost 10000) are available via \textbf{\url{https://cran.r-project.org/web/packages/}}.
 
-The easiest way to add packages to \textbf{R} is by using the \textit{Tools - Install Packages} option in the top menu in \textbf{R Studio}.
+There are two ways to add packages to R in R Studio, the first is by using the \textit{Tools - Install Packages} option in the top menu in R Studio.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.75\textwidth]{installPkg.jpg}
 	\caption{R Studio Install Packages}
 \end{figure}
 
-You will need to install the following \textbf{R} packages for the workshop:
+You will need to write the name of each package you wish to download separated by a comma or space. However, this will only work for packages which are available from the CRAN website.
 
-It will take a little time for all the packages to install.
+You will need to install the following R packages for the workshop: "tm", "RColorBrewer", "ggplot2", "wordcloud", "tsne", "Rtsne", "devtools", "stringi", "ggrepel" and "wordVectors".
+
+Run the following piece of code in the R Console to install the packages required for the workshop: 
+
+\begin{minted}[linenos]{r} 
+# Create a vector of the required packages available from CRAN 
+needed <- c("tm", "RColorBrewer", "ggplot2", "wordcloud", "tsne", 
+                   "Rtsne", "devtools", "stringi", "ggrepel")
+
+# install the packages to your laptop
+install.packages(needed)
+
+# install the wordVectors package from GitHub
+library(devtools)
+install_github("bmschmidt/wordVectors")
+
+\end{minted}
+
+It may take a little time for all the packages to install. Once this has been done, and the command prompt \textbf{\textgreater} is showing, you can close R.
+
+
 
 \section{Learning `R'}
 During the workshop you will be given all the code you need to carry out the analysis. 
 
-If you wish to get an overview of how \textbf{R} works and familiarize yourself with some of the commands \textbf{\url{https://www.datacamp.com/courses/free-introduction-to-r}} or \textbf{\url{http://tryr.codeschool.com}} give a brief practical introduction.
+If you wish to get an overview of how R works and familiarize yourself with some of the commands \textbf{\url{https://www.datacamp.com/courses/free-introduction-to-r}} or \textbf{\url{http://tryr.codeschool.com}} give a brief practical introduction.
 
 For a more detailed and complex introduction see \textbf{\url{https://www.r-bloggers.com/how-to-learn-r-2/}}.
  
