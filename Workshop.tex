@@ -1,0 +1,222 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+\usepackage[usenames, dvipsnames]{color}
+
+
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+\usepackage{minted}
+\usepackage{mdframed}
+\surroundwithmdframed{minted}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Session 1 and 2}
+\lhead{Workshop: Text Analysis and Word Vectors in R}
+\rfoot{Page \thepage}
+\lfoot{Sara J Kerr. Frankfurt - Jan 2017}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=RoyalPurple,     
+    urlcolor=OliveGreen,
+}
+ 
+\urlstyle{same}
+
+\title{Workshop: Text Analysis and Word Vectors in R}
+\author{Sara J Kerr M.A. 
+ \thanks{PhD Candidate at An Foras Feasa: Maynooth University Institute for the Humanities, Maynooth University, Ireland. \newline Supported by a Hume Scholarship.}} 
+\date{January 2017}
+
+\renewcommand*\contentsname{Summary}
+
+\begin{document}
+\sffamily
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+
+\tableofcontents
+
+\section*{Overview}
+This workshop will provide an introduction to textual analysis and word vector analysis in R.  R is a free and open source piece of software traditionally used for statistical analysis. Packages for R can be installed from the CRAN website via R Studio or directly from a source.
+
+The workshop aims to introduce textual analysis and word vectors using R and provide a starting point for further exploration. The materials used will be texts in English and other European languages. 
+
+\section{Workshop Session One: Text Analysis in R}
+Before you start you should create a folder called Workshop on your desktop for the workshop materials and results. Folder names should not contain any gaps as this can cause problems when accessing them from R Studio. 
+
+Open R Studio.
+
+Before you start you need to set your `working directory', this is the folder where the texts and results are stored. Go to \textit{Session} - \textit{Set Working Directory} - \textit{Choose Directory} then browse to the folder \textit{Workshop} on your desktop.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{setdir.jpg}
+	\caption{Setting the Working Directory}
+\end{figure}
+ 
+ You will notice that a piece of code has appeared in the R console:
+ \begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r}  
+setwd("pathway to the working directory")
+
+# This is the function that sets the working directory
+\end{minted}
+ 
+\subsection{Text Analysis in Base R}
+This first section focuses on frequency analysis using base R.
+To load the first file and view the first 6 elements: 
+
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+ja_ch <- scan("Austen_Texts/Chapter_Files/PP1_En.txt", what = "character", 
+              sep = "\n")
+
+# A character file has been created with 80 elements.
+
+head(ja_ch)
+\end{minted}
+
+The output will show the first 6 lines of the document - in this case the title and first 4 lines of Chapter 1 of Jane Austen's \textit{Pride and Prejudice}. Each line is enclosed in speech marks as they are character strings. You will also notice that a value \textbf{ja{\_}ch} is now in the environment pane, each time you create something it will appear in this pane. This is a character (chr) vector which has 80 elements. To access an individual element or a selection of elements:
+
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+ja_ch[1]
+ja_ch[3:4]
+\end{minted}
+
+Now create a new vector which only contains the chapter text:
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+ja_ch1 <- ja_ch[3:80]
+# Check the first 6 lines 
+head(ja_ch1)
+\end{minted}
+
+Load the second chapter \textbf{PP1{\_}De.txt} into a vector called \textbf{ja{\_}ch{\_}d}. Create a vector which removes the first two lines and saves the chapter text into a new vector called \textbf{ja{\_}ch1d}. You should now have a character vector which contains a bad German translation of the first chapter of \textit{Pride and Prejudice} (thanks to Google Translate).  
+
+Remove line breaks from each file (if you wish to start over in the same session rerun these two lines of code to recreate the unprocessed text). It is a good idea to keep a vector of the text in an unprocessed form, if you make a mistake you won't have to start from the beginning.
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+text1 <- paste(ja_ch1, collapse = " ")
+text2 <- paste(ja_ch1d, collapse = " ")
+\end{minted}
+The chapters are each now a single character string.
+
+Before word frequencies can be calculated, the text needs to be processed. The level of processing will depend on the text and its language. For the texts we have created we will 
+
+To apply the analysis in Workshop Session One to Japanese, the chosen texts will need to be split into words using a package like \textbf{RMeCab} (which can be found at: \textbf{\url{http://rmecab.jp/wiki/index.php?RMeCab}}) as the function used to separate the texts into word lists relies upon an regular expression and gaps between words. Unfortunately I can't give further instructions on the use of this package as the website is in Japanese. Another useful package is \textbf{Nippon} which includes a variety of utilities for handling Japanese text. 
+
+For more advanced exploration of texts there is \textbf{Stylo} a package for stylometric analysis which has options for use with Chinese and Japanese text. For further information about the Stylo package see \textbf{\url{https://cran.r-project.org/web/packages/stylo/stylo.pdf}}, \textbf{\url{https://journal.r-project.org/archive/accepted/eder-rybicki-kestemont.pdf}}, or \textbf{\url{https://my.vanderbilt.edu/digitalhumanities/using-r-for-stylometric-analysis-with-the-stylo-package/}}.
+
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+text1 <- tolower(text1) 
+# Check in the environment pane - the capital letters have now been removed
+
+# select words only
+text1 <- strsplit(text1, "\\W") # The second argument is a regular expression
+
+# If we look in the environment pane text1 is now a 'List of 1'
+text1 <- unlist(text1) # simplify to a vector
+text1
+\end{minted}
+
+Most of the chapter is now displayed (R 	has a `maximum print' limit), but where there was punctuation there are now ``''. Our next step is to remove these.
+
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+text1 <- text1[which(text1 != "")]
+# This subsets the vector by removing elements which are not spaces
+text1
+\end{minted}
+
+\textbf{text1} is now a character vector where each word is an element. If we look at the environment pane we can see the length of the vector in square brackets - 852. This gives us the number of tokens (words) in the text. It is also possible to calculate the length of a vector directly in R:
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+length(text1)
+\end{minted}
+
+Now do the same for \textbf{text2}.
+
+You can search for a word by its index number - R starts indexing at 1 - or by using the \textbf{which()} function. The \textbf{which()} function will return the index numbers of all occurrences of the selected word. By using the \textbf{length()} function we can identify how many times a word appears in the text. We can also use the \textbf{unique()} function to identify the word types in the text.
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+text1[42]
+text2[723]
+
+which(text1 == "neighbourhood")
+which(text2 == "nachbarschaft")
+
+# number of times a word appears in the text
+length(text1[which(text1 == "neighbourhood")])
+
+# number of types in the text
+length(unique(text2))
+\end{minted}
+
+
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+
+\end{minted}
+
+\begin{minted}
+[fontsize=\footnotesize,
+linenos
+]
+{r} 
+
+\end{minted}
+\newpage
+\section{Workshop Session Two: Work Vectors in R}
+Hello, here is some text without a meaning.  This text should show what 
+a printed text will look like at this place.
+
+\newpage
+
+
+\end{document}

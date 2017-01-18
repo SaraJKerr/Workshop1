@@ -1,22 +1,25 @@
 # Set your working directory - go to Session - Set Working Directory - Choose 
-# Directory select the Fr_Workshop_17 which you have saved to your desktop.
+# Directory select the Workshop folder which you have saved to your desktop.
 
 # Load the first file
 ja_ch <- scan("Austen_Texts/Chapter_Files/PP1_En.txt", what = "character", 
               sep = "\n")
 
-# The a character file has been created with 80 elements.
+# A character file has been created with 80 elements.
 # View the top 6 elements of the file
 
 head(ja_ch)
 
-# Remove the first two lines, the title and the chapter number, leaving just the 
-# text
+# To access an individual element or a selection of elements:
+ja_ch[1]
+ja_ch[3:4]
+
+# Remove the first two lines, the title and the chapter number
 ja_ch1 <- ja_ch[3:80]
-# Now check the first 6 lines of text1
+# Check the first 6 lines 
 head(ja_ch1)
 
-# Load the second file, remove the first two lines and save as text2
+# Load the second file, remove the first two lines and save as ja_ch1d
 ja_ch_d <- scan("Austen_Texts/Chapter_Files/PP1_De.txt", what = "character", 
                 sep = "\n")
 ja_ch1d <- ja_ch_d[3:80]
@@ -33,28 +36,52 @@ text2 <- paste(ja_ch1d, collapse = " ")
 text1 <- tolower(text1) 
 # Check in the environment pane - the capital letters have now been removed
 
-text2 <- tolower(text2)
-
 # select words only
-text1 <- strsplit(text1, " ", fixed = T)
+text1 <- strsplit(text1, "\\W") # The second argument is a regular expression
+
 # If we look in the environment pane text1 is now a 'List of 1'
-# simplify to a vector
-text1 <- unlist(text1)
+text1 <- unlist(text1) # simplify to a vector
 text1
 # The whole of the chapter is now displayed - but where there was punctuation we
 # have "". Now we need to remove these blank spaces.
 text1 <- text1[which(text1 != "")]
+# This subsets the vector by removing elements which are not spaces
+text1
+
+length(text1) # number of tokens
 
 
-
+text2 <- tolower(text2)
 text2 <- strsplit(text2, "\\W")
 text2 <- unlist(text2)
 text2 <- text2[which(text2 != "")]
+text2
 
+# You can search for a word by its index number - R starts indexing at 1 - or by
+# using the which() function.
 
-# We can look in the environment pane to see how many words there are in each
-# version of the chapter or use:
-length(text1)
-length(text2)
+text1[42]
+text2[723]
 
-# Each word
+which(text1 == "neighbourhood")
+which(text2 == "nachbarschaft")
+
+# number of times a word appears in the text
+length(text1[which(text1 == "neighbourhood")])
+
+# number of types in the text
+length(unique(text2))
+
+# create a table of frequencies
+text1_freqs <- table(text1)
+
+# sort by frequency
+sorted_text1 <- sort(text1_freqs, decreasing = TRUE)
+
+# View the top 10 most frequent words in the text
+sorted_text1[1:10]
+
+# View as a plot
+plot(sorted_text1[1:10])
+# If all 10 words don't appear click on the Zoom option in the plot pane.
+
