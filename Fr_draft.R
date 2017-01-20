@@ -85,3 +85,51 @@ sorted_text1[1:10]
 plot(sorted_text1[1:10])
 # If all 10 words don't appear click on the Zoom option in the plot pane.
 
+# To calculate the relative frequencies
+rel_freqs_text1 <- 100 * (sorted_text1 / sum(sorted_text1))
+
+# Plot top 10 relative frequencies
+plot(rel_freqs_text1[1:10], type = "b", xlab = "Top Ten Words", 
+     ylab = "Percentage of Chapter")
+
+# So far we have focused on a single chapter - now we will explore a
+# full novel, Mansfield Park
+
+text_MP <- scan("Austen_Texts/Novel_Files/Austen_1814_MP.txt", 
+                what = "character", sep = "\n")
+
+# View the first 6 lines of the file
+head(text_MP)
+
+# Using regular expressions to identify chapter index positions
+chapters <- grep("^CHAPTER \\d", text_MP)
+
+text_MP[chapters]
+
+# Add an end point to the novel and add to chapters
+text_MP <- c(text_MP, "END") # the length of text_MP is increased by 1
+finish <- length(text_MP)
+chapters <- c(chapters, finish) 
+
+# Calculating the word frequencies by chapter using a for loop
+
+ch_raw_freqs <- list() # Creating empty lists to be filled by the loop
+ch_rel_freqs <- list()
+
+for(i in 1:length(chapters)) {
+        if(i != length(chapters)){
+                ch_title <- text_MP[chapters[i]]
+                start <- chapters[i] + 1
+                end <- chapters[i + 1] - 1
+                ch_lines <- text_MP[start:end]
+                ch_text <- tolower(paste(ch_lines, collapse = " "))
+                ch_text <- strsplit(ch_text, "\\W")
+                ch_text <- unlist(ch_text)
+                ch_text <- ch_text[which(ch_text != "")]
+                ch_freqs <- table(ch_text)
+                ch_raw_freqs[[ch_title]] <- ch_freqs
+                rel_ch_freqs <- 100 * (ch_freqs / sum(ch_freqs))
+                ch_rel_freqs[[ch_title]] <-rel_ch_freqs
+        }
+}
+
