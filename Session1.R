@@ -1,3 +1,16 @@
+# Frankfurt Workshop 2017
+
+# Session 1
+
+# Session 1, subsections 1--4 are adapted from Matthew L. Jockers (2014) 
+# Text Analysis with R for Students of Literature.
+# Session 1, subsection 5 is adapted from blog post 
+# https://eight2late.wordpress.com/2015/05/27/a-gentle-introduction-to-text-mining-using-r/
+# Session 2 is adapted from Benjamin Schmidt's (2015) blog post 
+# http://bookworm.benschmidt.org/posts/2015-10-25-Word-Embeddings.html and my
+# doctoral research 'Jane Austen in Vector Space' presented at JADH (2016), 
+# which can be found here: https://sarajkerr.com/talks-and-papers/
+
 # Set your working directory - go to Session - Set Working Directory - Choose 
 # Directory select the Workshop folder which you have saved to your desktop.
 # 1
