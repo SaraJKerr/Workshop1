@@ -8,11 +8,6 @@
 # which can be found here: https://sarajkerr.com/talks-and-papers/
 
 # 1 - Create, or read in, a Vector Space Model
-
-# Install/load the packages needed for this session
-install.packages("magrittr")
-# If you are unable to install this package don't worry as I have included a 
-# work around
  
 library(wordVectors)
 library(tsne)
@@ -20,7 +15,7 @@ library(Rtsne)
 library(ggplot2)
 library(ggrepel)
 library(stringi)
-library(magrittr) # only load this package if you have been able to install it
+
 
 # If a prepared text file has not already been created follow this step - it 
 # takes in a folder of .txt files and outputs a single .txt file which combines
@@ -28,8 +23,8 @@ library(magrittr) # only load this package if you have been able to install it
 # case. 
 
 
-prep_word2vec("Austen_Texts/Novel_Files", "Austen_Texts/Novel_Files/
-              Novel_corpus.txt", lowercase =  T)
+prep_word2vec("Austen_Texts/Novel_Files", 
+              "Austen_Texts/Novel_Files/Novel_corpus.txt", lowercase =  T)
 
 # This can take some time depending on the size of the files
 
@@ -153,22 +148,25 @@ marriage <- nearest_to(ja, ja[["marriage"]], 100)
 plot(ja[[names(marriage), average = F]])  
 # This takes a little time to run
 
-wealth <- ja %>% nearest_to(ja[[c("establishment","income", "fortune",
-                "privilege","wealth", "property", "affluence")]], 300) %>% names
-# This uses the 'magrittr' package which acts as a pipeline enabling short cuts
-# It works in a similar manner to the vector for marriage but extracts the names
-sample(wealth, 100) 
-# This allows a random sample of 100 words to be taken from the vector
-
-# If you were not able to install 'magrittr' the same result can be created by 
-# using the following code:
-
-wealth1 <- nearest_to(ja, ja[[c("establishment","income", "fortune",
+# You can also search for words nearest to a semantic field
+wealth <- nearest_to(ja, ja[[c("establishment","income", "fortune",
                 "privilege","wealth", "property", "affluence")]], 300)
 
-wealth1 <- names(wealth1)
+wealth <- names(wealth)
 
-sample(wealth1, 100)
+sample(wealth, 100)
+# This allows a random sample of 100 words to be taken from the vector
+
+
+# An alternative is to use the 'magrittr' package which acts as a pipeline 
+# enabling short cuts
+# It works in a similar manner to the vector for marriage but extracts the names
+install.packages("magrittr")
+library(magrittr)
+wealth1 <- ja %>% nearest_to(ja[[c("establishment","income", "fortune",
+                "privilege","wealth", "property", "affluence")]], 300) %>% names
+sample(wealth1, 100) 
+
 
 # Plot the chosen segment
 plot(ja[[wealth[1:100], average = F]])
