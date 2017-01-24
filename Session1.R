@@ -159,9 +159,10 @@ marriage <- lapply(ch_rel_freqs, '[', "marriage")
 
 head(marriage) # shows the relative frequency per chapter
 
-marriage_com <- do.call(rbind, marriage) # Combines the results by row
+marriage_com <- do.call(rbind, marriage) # Combines the results by row 
+# This creates a matrix
 
-head(marriage_com) # This creates a matrix
+head(marriage_com) 
 
 # Compare instances of 'he' and 'she' in the novel
 he <- lapply(ch_rel_freqs, '[', "he")
@@ -290,13 +291,14 @@ kwic <- function(my_corpus) {
 
 # To use the function:
 results <- kwic(my_corpus)
-
 # select the file, context and keyword when prompted
+# For example - choose text 1, 7 for context and work as the keyword
+
 
 # If you wish to save the results as a .csv file
 write.csv(results, "Results/yourkeyword_text.csv")
-# e.g. if the chosen word was marriage in Mansfield Park
-write.csv(results, "Results/marriage_MP.csv")
+# e.g. if the chosen word was word in Pride and Prejudice
+write.csv(results, "Results/work_PP.csv")
 
 # 5
 # Start by clearing your workspace - this can be done by clicking on the 
