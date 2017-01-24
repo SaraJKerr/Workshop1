@@ -27,8 +27,8 @@
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
-    linkcolor=RoyalPurple,     
-    urlcolor=RoyalPurple,
+    linkcolor=Blue,     
+    urlcolor=Blue,
 }
  
 \urlstyle{same}
@@ -54,7 +54,7 @@ This workshop will provide an introduction to textual analysis and word vector a
 
 The workshop aims to introduce textual analysis and word vectors using R and provide a starting point for further exploration. The materials used will be examples from Jane Austen's works. Session 1 will explore some basic text analysis using R, in particular frequency analysis and Key Word in Context. While these are not necessary for using word vectors, they are helpful for putting the results of the vector space model into context and allow exploration at text level.
 
-To apply the analysis in Workshop Session One to Japanese the chosen texts will need to be split into words using a package like \textbf{RMeCab} (which can be found \href{http://rmecab.jp/wiki/index.php?RMeCab}{\textbf{here}}) as the function used to separate the texts into word lists relies upon an regular expression and gaps between words. Unfortunately I can't give further instructions on the use of this package as the website is in Japanese. Another useful package is \textbf{Nippon} which includes a variety of utilities for handling Japanese text, including converting text from Katakana to Hiragana. 
+To apply the analysis in Workshop Session One to Japanese the chosen texts will need to be split into words using a package like \textbf{RMeCab} (which can be found \href{http://rmecab.jp/wiki/index.php?RMeCab}{\textbf{here}}) as the function used to separate the texts into word lists relies upon an regular expression and gaps between words. Unfortunately I can't give further instructions on the use of this package as the website is in Japanese. Another useful package is \textbf{Nippon} which includes a variety of utilities for handling Japanese text, including converting text from Katakana to Hiragana. A short article, \href{http://opensym.org/wsos2013/proceedings/p1001-iio.pdf}{\textbf{Basic Techniques in Text Mining Using Open-source Tools}} gives a brief outline of some of the processes and tools for working with Japanese Texts.
 
 For more advanced exploration of texts there is \textbf{Stylo}, a package for stylometric analysis, which has options for use with Chinese and Japanese text. For further information about the \textbf{Stylo} package see \href{https://cran.r-project.org/web/packages/stylo/stylo.pdf}{\textbf{Stylo}}, \href{https://journal.r-project.org/archive/accepted/eder-rybicki-kestemont.pdf}{\textbf{Stylometry with R}}, or \href{https://my.vanderbilt.edu/digitalhumanities/using-r-for-stylometric-analysis-with-the-stylo-package/}{\textbf{Using R for Stylometric Analysis}}.
 
@@ -64,6 +64,8 @@ For more advanced exploration of texts there is \textbf{Stylo}, a package for st
 Session 1, subsections 1--4 are adapted from Matthew L. Jockers (2014) \textit{\textbf{Text Analysis with R for Students of Literature}}.
 
 Session 1, subsection 5 is adapted from \href{https://eight2late.wordpress.com/2015/05/27/a-gentle-introduction-to-text-mining-using-r/}{\textbf{A gentle introduction to text mining using R}}.
+
+Word vectors 
 
 You will need to to to \textbf{\url{https://sarajkerr.com/workshops/}} and download the resources you need for the workshop.  When creating folder names it is important that they do not contain any gaps as this can cause problems when accessing them from R Studio. Your Workshop folder should have the following structure:
 
@@ -313,8 +315,9 @@ marriage <- lapply(ch_rel_freqs, '[', "marriage")
 head(marriage) # shows the relative frequency per chapter
 
 marriage_com <- do.call(rbind, marriage) # Combines the results by row
+# This creates a matrix
 
-head(marriage_com) # This creates a matrix
+head(marriage_com) 
 \end{minted}
 
 The matrix created in R now appears in the environment pane under \textbf{data}. There is a small spreadsheet icon on the right hand side of the entry, if you click this the matrix will open in the document editor pane.
@@ -476,11 +479,12 @@ kwic <- function(my_corpus) {
 # To use the function:
 results <- kwic(my_corpus)
 # select the file, context and keyword when prompted
+# For example - choose text 1, 7 for context and work as the keyword
 
 # If you wish to save the results as a .csv file
 write.csv(results, "Results/yourkeyword_text.csv")
-# e.g. if the chosen word was marriage in Mansfield Park
-write.csv(results, "Results/marriage_MP.csv")
+# e.g. if the chosen word was work in Pride and Prejudice
+write.csv(results, "Results/work_PP.csv")
 \end{minted}
 
 \subsection{Using the 'tm' Package}
@@ -502,25 +506,7 @@ dname
 dir(dname) # Lists the files in the directory/folder
 \end{minted}
 
-As we are using a number of packages for this session which do not come as part of base R they need to be installed and loaded for use. There are two ways to add packages to R in R Studio, the first is by using the \textit{Tools - Install Packages} option in the top menu in R Studio.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.75\textwidth]{installPkg.jpg}
-	\caption{R Studio Install Packages}
-\end{figure}
-
-You will need to write the name of each package you wish to download separated by a comma or space. However, this will only work for packages which are available from the CRAN website. Alternatively, packages can be downloaded from the command line:
-\medskip
-\begin{minted}
-[fontsize=\footnotesize,
-linenos
-]
-{r} 
-install.packages("name of package")
-\end{minted}
-
-It may take a little time for all the packages to install. Once this has been done, and the command prompt \textbf{\textgreater} is showing, you can continue. To load the packages you need to tell R you want to use them. We are going to use \textit{tm}, \textit{ggplot2} and \textit{wordcloud}.
+ To load the packages you need to tell R you want to use them. We are going to use \textit{tm}, \textit{ggplot2} and \textit{wordcloud}.
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
@@ -614,6 +600,20 @@ You could rerun the code on page 10 removing the \# at the start of line 8 to re
 
 Session 2 is adapted from Benjamin Schmidt's (2015) blog post \href{http://bookworm.benschmidt.org/posts/2015-10-25-Word-Embeddings.html}{\textbf{Word Embeddings}} and my doctoral research 'Jane Austen in Vector Space' presented at JADH (2016), which can be found \href{https://sarajkerr.com/talks-and-papers/}{\textbf{here}}.
 
+\subsection{What is a Vector Space Model and How is it Created?}
+This description from \href{https://www.tensorflow.org/tutorials/word2vec/}{\textbf{TensorFlow}} explains briefly what a vector space model is and the difference between the skip-gram and the continuous bag of words model. The website has an extended, more technical explanation for those interested.
+\begin{quote}
+Vector space models (VSMs) represent (embed) words in a continuous vector space where semantically similar words are mapped to nearby points ('are embedded nearby each other'). VSMs have a long, rich history in NLP, but all methods depend in some way or another on the Distributional Hypothesis, which states that words that appear in the same contexts share semantic meaning. The different approaches that leverage this principle can be divided into two categories: count-based methods (e.g. Latent Semantic Analysis), and predictive methods (e.g. neural probabilistic language models).
+
+
+This distinction is elaborated in much more detail by \href{http://clic.cimec.unitn.it/marco/publications/acl2014/baroni-etal-countpredict-acl2014.pdf}{\textbf{Baroni et al.}}, but in a nutshell: Count-based methods compute the statistics of how often some word co-occurs with its neighbor words in a large text corpus, and then map these count-statistics down to a small, dense vector for each word. Predictive models directly try to predict a word from its neighbors in terms of learned small, dense embedding vectors (considered parameters of the model).
+
+
+Word2vec is a particularly computationally-efficient predictive model for learning word embeddings from raw text. It comes in two flavors, the Continuous Bag-of-Words model (CBOW) and the Skip-Gram model (Section 3.1 and 3.2 in \href{https://arxiv.org/pdf/1301.3781.pdf}{\textbf{Mikolov et al.}}). Algorithmically, these models are similar, except that CBOW predicts target words (e.g. 'mat') from source context words ('the cat sits on the'), while the skip-gram does the inverse and predicts source context-words from the target words. This inversion might seem like an arbitrary choice, but statistically it has the effect that CBOW smoothes over a lot of the distributional information (by treating an entire context as one observation). For the most part, this turns out to be a useful thing for smaller datasets. However, skip-gram treats each context-target pair as a new observation, and this tends to do better when we have larger datasets.
+\end{quote}
+
+The skip-gram model is the default for the \textbf{wordVectors} package - although it is possible to change this, the skip-gram model works slightly better with less frequent words so it makes sense to keep the default settings unless there is a particularly good reason to change them.
+
 Begin by clearing your workspace, this can be done by clicking on the broom in the environment pane or choosing \textit{Session} - \textit{Clear Workspace}. This will remove all the objects created during the previous session.
 
 \subsection{Create, or Load, a Vector Space Model}
@@ -625,10 +625,6 @@ The \textbf{wordVectors} package in R allows you to create a vector space model 
 linenos
 ]
 {r} 
-# Install/load the packages needed for this session
-install.packages("magrittr")
-# If you are unable to install this package don't worry as I have included a 
-# work around
  
 library(wordVectors)
 library(tsne)
@@ -636,15 +632,12 @@ library(Rtsne)
 library(ggplot2)
 library(ggrepel)
 library(stringi)
-library(magrittr) # only load this package if you have been able to install it
 \end{minted}
 
 Before a vector space model can be created the .txt files need to be processed. The \textbf{prep{\_}word2vec} function takes in a folder of .txt files and outputs a single .txt file which combines the texts in one document removes punctuation and converts all words to lower
 case.  
 
-The model then needs to be trained - this uses the skip-gram method of creating a vector space mode as default (the alternative is continuous bag of words), which is better for infrequent words. This tutorial (\href{https://www.tensorflow.org/tutorials/word2vec/}{\textbf{Vector Representations of Words}}) provides a detailed explanation of the difference between the two models.
-
-The created model will appear in the environment pane in R Studio, a copy called \textbf{Novel.bin} will be saved to the \textit{Results} folder. This can be loaded into future R sessions saving processing time. It is important to remember that the larger the corpus the longer it will take to process and load.
+The model then needs to be trained. The created model will appear in the environment pane in R Studio, a copy called \textbf{Novel.bin} will be saved to the \textit{Results} folder. This can be loaded into future R sessions saving processing time. It is important to remember that the larger the corpus the longer it will take to process and load.
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
@@ -653,8 +646,8 @@ linenos
 {r} 
 # If a prepared text file has not already been created follow this step 
 
-prep_word2vec("Austen_Texts/Novel_Files", "Austen_Texts/Novel_Files/
-              Novel_corpus.txt", lowercase =  T)
+prep_word2vec("Austen_Texts/Novel_Files", 
+     "Austen_Texts/Novel_Files/Novel_corpus.txt", lowercase =  T)
 
 # This can take some time depending on the size of the files
 
@@ -795,22 +788,23 @@ marriage <- nearest_to(ja, ja[["marriage"]], 100)
 plot(ja[[names(marriage), average = F]])  
 # This takes a little time to run
 
-wealth <- ja %>% nearest_to(ja[[c("establishment","income", "fortune",
-                "privilege","wealth", "property", "affluence")]], 300) %>% names
-# This uses the 'magrittr' package which acts as a pipeline enabling short cuts
-# It works in a similar manner to the vector for marriage but extracts the names
-sample(wealth, 100) 
-# This allows a random sample of 100 words to be taken from the vector
-
-# If you were not able to install 'magrittr' the same result can be created by 
-# using the following code:
-
-wealth1 <- nearest_to(ja, ja[[c("establishment","income", "fortune",
+# You can also search for words nearest to a semantic field
+wealth <- nearest_to(ja, ja[[c("establishment","income", "fortune",
                 "privilege","wealth", "property", "affluence")]], 300)
 
-wealth1 <- names(wealth1)
+wealth <- names(wealth)
 
-sample(wealth1, 100)
+sample(wealth, 100)
+# This allows a random sample of 100 words to be taken from the vector
+
+# An alternative is to use the 'magrittr' package which acts as a pipeline 
+# enabling short cuts
+# It works in a similar manner to the vector for marriage but extracts the names
+install.packages("magrittr")
+library(magrittr)
+wealth1 <- ja %>% nearest_to(ja[[c("establishment","income", "fortune",
+                "privilege","wealth", "property", "affluence")]], 300) %>% names
+sample(wealth1, 100) 
 
 # Plot the chosen segment
 plot(ja[[wealth[1:100], average = F]])
