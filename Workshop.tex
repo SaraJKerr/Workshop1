@@ -34,7 +34,7 @@
 \urlstyle{same}
 
 \title{{Text Analysis and Word Vectors in R} \\ {Workshop at Goethe University Frankfurt}  \newline }
-\author{Sara J Kerr M.A.\thanks{PhD Candidate at An Foras Feasa: Maynooth University Institute for the Humanities, Ireland. \newline Supported by a Pat and John Hume Scholarship.}} 
+\author{Sara J Kerr M.A.\thanks{PhD Candidate at An Foras Feasa, Maynooth University, Ireland. \newline Supported by a Pat and John Hume Scholarship.}} 
 \date{25th January 2017}
 
 
@@ -50,21 +50,29 @@
 \tableofcontents
 
 \section*{Overview}
-This workshop will provide an introduction to textual analysis and word vector analysis in R.  R is a free and open source piece of software traditionally used for statistical analysis. Packages for R can be installed from the CRAN website via R Studio or directly from a source.
+This workshop will provide an introduction to textual analysis and word vector analysis in R.  R is a free and open source piece of software traditionally used for statistical analysis. Packages for R can be installed from the CRAN website, via R Studio, or directly from a source website.
 
-The workshop aims to introduce textual analysis and word vectors using R and provide a starting point for further exploration. The materials used will be texts in English and other European languages. Session 1 will explore some basic text analysis using R, in particular frequency analysis and Key Word in Context. While these are not necessary for using word vectors, they are helpful for putting the results of the vector space model into context and allow exploration at text level.
+The workshop aims to introduce textual analysis and word vectors using R and provide a starting point for further exploration. The materials used will be examples from Jane Austen's works. Session 1 will explore some basic text analysis using R, in particular frequency analysis and Key Word in Context. While these are not necessary for using word vectors, they are helpful for putting the results of the vector space model into context and allow exploration at text level.
 
-To apply the analysis in Workshop Session One to Japanese, the chosen texts will need to be split into words using a package like \textbf{RMeCab} (which can be found \href{http://rmecab.jp/wiki/index.php?RMeCab}{\textbf{here}}) as the function used to separate the texts into word lists relies upon an regular expression and gaps between words. Unfortunately I can't give further instructions on the use of this package as the website is in Japanese. Another useful package is \textbf{Nippon} which includes a variety of utilities for handling Japanese text. 
+To apply the analysis in Workshop Session One to Japanese the chosen texts will need to be split into words using a package like \textbf{RMeCab} (which can be found \href{http://rmecab.jp/wiki/index.php?RMeCab}{\textbf{here}}) as the function used to separate the texts into word lists relies upon an regular expression and gaps between words. Unfortunately I can't give further instructions on the use of this package as the website is in Japanese. Another useful package is \textbf{Nippon} which includes a variety of utilities for handling Japanese text, including converting text from Katakana to Hiragana. 
 
-For more advanced exploration of texts there is \textbf{Stylo} a package for stylometric analysis which has options for use with Chinese and Japanese text. For further information about the Stylo package see \href{https://cran.r-project.org/web/packages/stylo/stylo.pdf}{\textbf{Stylo}}, \href{https://journal.r-project.org/archive/accepted/eder-rybicki-kestemont.pdf}{\textbf{Stylometry with R}}, or \href{https://my.vanderbilt.edu/digitalhumanities/using-r-for-stylometric-analysis-with-the-stylo-package/}{\textbf{Using R for Stylometric Analysis}}.
+For more advanced exploration of texts there is \textbf{Stylo}, a package for stylometric analysis, which has options for use with Chinese and Japanese text. For further information about the \textbf{Stylo} package see \href{https://cran.r-project.org/web/packages/stylo/stylo.pdf}{\textbf{Stylo}}, \href{https://journal.r-project.org/archive/accepted/eder-rybicki-kestemont.pdf}{\textbf{Stylometry with R}}, or \href{https://my.vanderbilt.edu/digitalhumanities/using-r-for-stylometric-analysis-with-the-stylo-package/}{\textbf{Using R for Stylometric Analysis}}.
 
 
 \section{Workshop Session One: Text Analysis in R}
 
 Session 1, subsections 1--4 are adapted from Matthew L. Jockers (2014) \textit{\textbf{Text Analysis with R for Students of Literature}}.
+
 Session 1, subsection 5 is adapted from \href{https://eight2late.wordpress.com/2015/05/27/a-gentle-introduction-to-text-mining-using-r/}{\textbf{A gentle introduction to text mining using R}}.
 
-You need to create a folder called Workshop on your desktop for the workshop materials and results. Folder names should not contain any gaps as this can cause problems when accessing them from R Studio. 
+You will need to to to \textbf{\url{https://sarajkerr.com/workshops/}} and download the resources you need for the workshop.  When creating folder names it is important that they do not contain any gaps as this can cause problems when accessing them from R Studio. Your Workshop folder should have the following structure:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{workshop.jpg}
+	\caption{The Workshop Folder}
+\end{figure}
+
 
 Open R Studio.
 
@@ -766,7 +774,7 @@ results <- kwic(my_corpus)
 
 \end{minted}
 
-\subsection{Exploring the Vector Space Model}
+\subsection{Exploring a Vector Space Model}
 
 There are a number of function built into the \textbf{wordVectors} package which allow the vector space model to be explored. We will look at the \textbf{nearest{\_}to()} function. Details of other functions can be found on the GitHub page for the \textbf{wordVectors} package - \href{https://github.com/bmschmidt/wordVectors}{\textbf{here}}.
 
