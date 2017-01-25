@@ -155,7 +155,7 @@ for(i in 1:length(chapters)) {
 }
 
 # To find out the frequency of a word across each chapter
-marriage <- lapply(ch_rel_freqs, '[', "marriage")
+marriage <- lapply(ch_rel_freqs, "[", "marriage")
 
 head(marriage) # shows the relative frequency per chapter
 
@@ -165,9 +165,9 @@ marriage_com <- do.call(rbind, marriage) # Combines the results by row
 head(marriage_com) 
 
 # Compare instances of 'he' and 'she' in the novel
-he <- lapply(ch_rel_freqs, '[', "he")
+he <- lapply(ch_rel_freqs, "[", "he")
 he_com <- do.call(rbind, he)
-she <- lapply(ch_rel_freqs, '[', "she")
+she <- lapply(ch_rel_freqs, "[", "she")
 she_com <- do.call(rbind, she)
 
 # Extract the relative frequencies and combine in columns
@@ -187,9 +187,9 @@ barplot(rf_he_she, beside = TRUE, col = "red")
 # The arguments for the function are the chapter relative frequencies and 
 # your two chosen words - the words need to be in speech marks
 rel_freq_comp <- function(ch_rel_freqs, word1, word2) {
-        worda <- lapply(ch_rel_freqs, '[', word1)
+        worda <- lapply(ch_rel_freqs, "[", word1)
         worda_com <- do.call(rbind, worda)
-        wordb <- lapply(ch_rel_freqs, '[', word2)
+        wordb <- lapply(ch_rel_freqs, "[", word2)
         wordb_com <- do.call(rbind, wordb)
         worda_rf <- worda_com[, 1] 
         wordb_rf <- wordb_com[, 1] 
