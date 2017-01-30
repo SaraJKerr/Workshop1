@@ -185,7 +185,7 @@ write.csv(results, "Results/yourkeyword_text.csv")
 # using the wordVectors package but plotting with Rtsne (which is quicker than
 # tsne) in ggplot2 which allows more modifications
 
-# The function takes 4 arguments:
+# The function takes 5 arguments:
 # vsm - a vector space model 
 # words - a character vector of focus words
 # seed - an integer
