@@ -90,7 +90,7 @@ Before you start you need to set your `working directory', this is the folder wh
 \medskip
  \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r}  
 setwd("pathway to the working directory")
@@ -106,7 +106,7 @@ To load the first file and view the first 6 elements:
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 ja_ch <- scan("Austen_Texts/Chapter_Files/PP1_En.txt", what = "character", 
@@ -125,7 +125,7 @@ The output will show the first 6 lines of the document - in this case the title 
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 ja_ch[1]
@@ -136,7 +136,7 @@ Now create a new vector which only contains the chapter text:
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 ja_ch1 <- ja_ch[3:80]
@@ -150,7 +150,7 @@ Remove line breaks from each file (if you wish to start over in the same session
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 text1 <- paste(ja_ch1, collapse = " ")
@@ -163,7 +163,7 @@ Before word frequencies can be calculated, the text needs to be processed. The l
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # Change text to lower case
@@ -182,7 +182,7 @@ Most of the chapter is now displayed (R 	has a `maximum print' limit), but where
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 text1 <- text1[which(text1 != "")] # '!=' means 'does not equal'
@@ -194,7 +194,7 @@ text1
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 length(text1)
@@ -208,7 +208,7 @@ You can search for a word by its index number - R starts indexing at 1 - or by u
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 text1[42]
@@ -228,7 +228,7 @@ Now we will use R to create a raw frequency table, sort it by most frequent word
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # create a table of frequencies
@@ -249,7 +249,7 @@ Although it can be interesting to view the raw frequencies, calculating the rela
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # To calculate the relative frequencies
@@ -267,7 +267,7 @@ So far we have focused on a single chapter - now we will briefly explore a full 
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # Load the text into R
@@ -326,7 +326,7 @@ However, it is easier to view the different frequencies of words by plotting the
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # Compare instances of 'he' and 'she' in the novel
@@ -353,7 +353,7 @@ Once you have created a relative frequencies list you may wish to compare a vari
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # The arguments for the function are the chapter relative frequencies and 
@@ -382,7 +382,7 @@ If we want to look at a corpus of texts we need to have a way of identifying the
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # Create a path to the files
@@ -430,7 +430,7 @@ To explore individual words within the context they appear in, we can use Key Wo
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # Creating a Key Word in Context (KWIC) function - this uses the output from
@@ -497,7 +497,7 @@ We start by telling R where the files we are using are stored, in this case the 
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # Tell the computer where the texts are located
@@ -510,7 +510,7 @@ dir(dname) # Lists the files in the directory/folder
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 library(tm) # tm is a text mining package
@@ -522,7 +522,7 @@ Now we have loaded the packages we want to use we need to load the corpus into R
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # load the corpus
@@ -542,7 +542,7 @@ Once the corpus has been processed a Document Term Matrix (DTM) can be created. 
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # Create a Document Term Matrix
@@ -571,7 +571,7 @@ It can be useful to visualise the word frequencies. Below are two examples, a fr
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # Create a frequency graph of the words which appear more than 500 times  
@@ -622,7 +622,7 @@ The \textbf{wordVectors} package in R allows you to create a vector space model 
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
  
@@ -641,7 +641,7 @@ The model then needs to be trained. The created model will appear in the environ
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # If a prepared text file has not already been created follow this step 
@@ -673,7 +673,7 @@ While the \textbf{wordVectors} package will allow a detailed exploration of the 
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # Create a path to the files
@@ -775,7 +775,7 @@ The \textbf{nearest{\_}to()} function allows you to search the vector space mode
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # The nearest_to() function uses cosine similarity
@@ -826,7 +826,7 @@ To speed up the exploration of the vector space model I created a function calle
 \medskip
 \begin{minted}
 [fontsize=\footnotesize,
-linenos
+%linenos
 ]
 {r} 
 # The function takes 4 arguments:
